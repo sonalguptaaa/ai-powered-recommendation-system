@@ -1,0 +1,59 @@
+AI RECOMMENDATION ENGINE - how to run it
+=========================================
+
+TL;DR
+-----
+From the /backend folder, double-click  run.bat   (or in PowerShell: ./run.ps1)
+Then open the frontend:  /frontend/index.html
+Server runs at http://127.0.0.1:8000  (API docs at /docs)
+
+
+WHAT THE PROJECT NEEDS
+----------------------
+Python 3.11 or newer (3.12 / 3.13 / 3.14 all work fine).
+The code only needs these packages:
+    fastapi, uvicorn, pandas, scikit-learn
+(numpy, scipy, pydantic come in automatically as dependencies)
+
+
+FRESH INSTALL (first time, or after wiping packages)
+----------------------------------------------------
+    py -3 -m venv .venv
+    .venv\Scripts\activate
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+    run.bat        <-- starts the server
+
+The launcher (run.bat / run.ps1) will automatically find a Python that
+already has the packages, so you usually don't need the steps above.
+
+
+THE OLD REQUIREMENTS ARE GONE
+-----------------------------
+The original requirements.txt pinned tensorflow-cpu, implicit, numpy, etc.
+None of those are imported by the running server — they were leftover from
+experiments, and the old pinned versions had no wheels for Python 3.14,
+which is why a fresh install broke. They've been removed.
+
+
+TROUBLESHOOTING
+---------------
+* "ModuleNotFoundError: No module named 'pandas'"
+    -> Your active `python` has no packages. Run the FRESH INSTALL above,
+       or just use run.bat which picks a Python that has them.
+
+* Frontend loads but shows "Error loading recommendations"
+    -> The backend isn't running. Start it with run.bat first.
+
+* Port 8000 already in use
+    -> Something else is on 8000. Edit run.bat (or app.js API_BASE) and
+       use a different port, e.g. --port 8001.
+
+* Two Python interpreters installed (e.g. an MSYS2 one and a normal one)
+    -> The MSYS2/Git-Bash python often has no packages. run.bat skips it
+       automatically and uses the one that works.
+
+
+DO NOT ALTER
+------------
+/models/*.pkl  and  /models/*.csv  and  amazon.csv  - the trained data files.

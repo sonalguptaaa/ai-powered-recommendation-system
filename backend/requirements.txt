@@ -1,0 +1,8 @@
+# Web framework
+fastapi>=0.110
+uvicorn[standard]>=0.24
+pydantic>=2.5
+
+# Data + recommendation (these pull in compatible numpy/scipy automatically)
+pandas>=2.0
+scikit-learn>=1.3
